@@ -35,86 +35,74 @@ public static void main (String[] args) {
 	customers[2] = new Customer("Robert");
 	
 	Scanner scan = new Scanner(System.in);
-	
-	boolean booking = true;
+	String name ;
+	int roomNum;
+	Customer customer;
+	NormalRoom room;
 
-	while (booking) {
-		System.out.println("Name and the room number you are booking:");
-		String name = scan.nextLine();
-		int roomnumber = scan.nextInt();
-		scan.nextLine();
-		
-		Customer customer = findname(customers, name);
-		ExecutiveRoom Executiveroom = findexecutiveroom(executiveroom, roomnumber);
-		NormalRoom Normalroom = findnormalroom(normalroom, roomnumber);
-		
-		
-		setbyroomnumber(normalroom,roomnumber,customer);
-		
-		if(customer != null &&  roomnumber >= 100 && roomnumber <= 119) {
-			
-			if(roomnumber >= 100 && roomnumber < 110) {
-			
-				System.out.println("Room number: " + customer.getroomNumber() + " is " + Normalroom.getstatus());
-				
-			}
-			
-			if(roomnumber >= 110 && roomnumber <= 119)
-			
-				System.out.println("Room number: " + customer.getroomNumber() + " is " + Executiveroom.getstatus());
-			
+
+	System.out.println("Name and room number:");
+	name = scan.nextLine();
+	roomNum = scan.nextInt();
+	customer = findCustomer(customers, name);
+
+	if(customer!=null){
+		if(room>=100 && room<110){
+			room = findRoom(normalroom, roomNum);
+			setRoom(normalroom, customer, roomNum);
+			System.out.println("hi");
 		}
-		
-		else System.out.println("oops");
-		
-					}
+		else if(room>=110&&room<=119){
+			room = findExecRoom(executiveroom, roomNum);
+			setExecRoom(executiveroom, customer, roomNum);
+			System.out.println("hi")
+		}
+		else{
+			System.out.println("Not a room")
+		}
 	}
+	
 
-	public static Customer findname(Customer[] customers, String name) {
-		for(Customer customer: customers) {
-			if(customer != null && customer.getname().equals(name)) {
-				return customer;
-			}
+	public static Customer findCustumer(Customer[] customers, string name){
+		for(Customer customer : customers){
+			if(customer.getname().equals(name)) return customer;
 		}
 		return null;
 	}
-	public static NormalRoom findnormalroom(NormalRoom[] normalroom, int roomnumber) {
-		for(NormalRoom Normalroom: normalroom) {
-			if(Normalroom != null && Normalroom.getroomNumber() == roomnumber) {
-				return Normalroom;
-			}
+	public static NormalRoom findRoom(NormalRoom[] rooms, int roomNumber){
+		for(NormalRoom room : rooms){
+			if(room.getnumber==roomNumber) return room;
 		}
-		return null;	
+		return null;
 	}
-	
-	public static ExecutiveRoom findexecutiveroom(ExecutiveRoom[] executiveroom, int roomnumber) {
-		for(ExecutiveRoom Executiveroom: executiveroom) {
-			if(Executiveroom != null && Executiveroom.getroomNumber() == roomnumber) {
-				return Executiveroom;
-			}
+	public static NormalRoom findExecRoom(ExecutiveRoom[] rooms, int roomNumber){
+		for(NormalRoom room : rooms){
+			if(room.getnumber==roomNumber) return room;
 		}
-		return null;	
+		return null;
 	}
 
-	public static void setbyroomnumber(NormalRoom[] normalrooms,int roomnumber,Customer customer) {
-		for (int i = 0; i < normalrooms.length; i++) {
-			if (roomnumber == normalrooms[i].getroomNumber()&& "Available".equals(normalrooms[i].getstatus()) && customer.getroomNumber() == -1) {
-				customer.setroom(normalrooms[i].getroomNumber());
-			}
-		}
-	}
-
-	public static void setroomnumber(NormalRoom[] normalrooms, Customer customer) {
-		for (int i = 0; i < normalrooms.length; i++) {
-			if ("Available".equals(normalrooms[i].getstatus())) {
-				customer.setroom(normalrooms[i].getroomNumber());
-				normalrooms[i].changestatus("Occupied");
+	public static void setRoom(NormalRoom[] rooms, Customer customer, int roomNumber){
+		for(int i = 0; i< rooms.length; i++){
+			if(rooms[i].getroomNumber()==roomNumber&&rooms[i].getstatus.equals("Available")){
+				customer.setRoom(roomNumber);
+				rooms[i].changestatus("occupied");
 				return;
 			}
 		}
+		System.out.println("Not available");
+	}
+	public static void setExecRoom(ExecutiveRoom[] rooms, Customer customer, int roomNumber){
+		for(int i = 0; i< rooms.length; i++){
+			if(rooms[i].getroomNumber()==roomNumber&&rooms[i].getstatus.equals("Available")){
+				customer.setRoom(roomNumber);
+				rooms[i].changestatus("occupied");
+				return;
+			}
+		}
+		System.out.println("Not available");
 	}
 
-	
+
+
 }
-
-
