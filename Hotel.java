@@ -45,11 +45,11 @@ public static void main (String[] args) {
 		scan.nextLine();
 		
 		Customer customer = findname(customers, name);
-		ExecutiveRoom Executiveroom = findexecutiveroom(executiveroom, roomnumber);
-		NormalRoom Normalroom = findnormalroom(normalroom, roomnumber);
+		// ExecutiveRoom room = findnormalroom(executiveroom, roomnumber);
+		// NormalRoom Normalroom = findnormalroom(normalroom, roomnumber);
 		
 		
-		setbyroomnumber(normalroom,roomnumber,customer);
+		setbyroomnumber(executiveroom,roomnumber,customer);
 		
 		if(customer != null &&  roomnumber >= 100 && roomnumber <= 119) {
 			
@@ -87,34 +87,33 @@ public static void main (String[] args) {
 		return null;	
 	}
 	
-	public static ExecutiveRoom findexecutiveroom(ExecutiveRoom[] executiveroom, int roomnumber) {
-		for(ExecutiveRoom Executiveroom: executiveroom) {
-			if(Executiveroom != null && Executiveroom.getroomNumber() == roomnumber) {
-				return Executiveroom;
+	// public static ExecutiveRoom findexecutiveroom(ExecutiveRoom[] executiveroom, int roomnumber) {
+	// 	for(ExecutiveRoom Executiveroom: executiveroom) {
+	// 		if(Executiveroom != null && Executiveroom.getroomNumber() == roomnumber) {
+	// 			return Executiveroom;
+	// 		}
+	// 	}
+	// 	return null;	
+	// }
+
+	public static void setroomnumber(NormalRoom[] normalrooms,int roomnumber,Customer customer) {
+		for (int i = 0; i < normalrooms.length; i++) {
+				if("Available".equals(normalrooms[i].getstatus() && roomnumber==normalrooms[i].getroomNumber){
+					customer.setroom(normalrooms[i].getroomNumber());
+				}
 			}
 		}
-		return null;	
 	}
 
-	public static void setbyroomnumber(NormalRoom[] normalrooms,int roomnumber,Customer customer) {
-		for (int i = 0; i < normalrooms.length; i++) {
-			if (roomnumber == normalrooms[i].getroomNumber()&& "Available".equals(normalrooms[i].getstatus()) && customer.getroomNumber() == -1) {
-				customer.setroom(normalrooms[i].getroomNumber());
-			}
-		}
-	}
-
-	public static void setroomnumber(NormalRoom[] normalrooms, Customer customer) {
-		for (int i = 0; i < normalrooms.length; i++) {
-			if ("Available".equals(normalrooms[i].getstatus())) {
-				customer.setroom(normalrooms[i].getroomNumber());
-				normalrooms[i].changestatus("Occupied");
-				return;
-			}
-		}
-	}
+	// public static void setroomnumber(NormalRoom[] normalrooms, Customer customer) {
+	// 	for (int i = 0; i < normalrooms.length; i++) {
+	// 		if ("Available".equals(normalrooms[i].getstatus())) {
+	// 			customer.setroom(normalrooms[i].getroomNumber());
+	// 			normalrooms[i].changestatus("Occupied");
+	// 			return;
+	// 		}
+	// 	}
+	// }
 
 	
 }
-
-
